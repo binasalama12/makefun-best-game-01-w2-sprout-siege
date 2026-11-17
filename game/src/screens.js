@@ -94,14 +94,18 @@ export function drawTitleScreen(ctx, state, time) {
     const x = 756 + col * 254, y = 494 + row * 23;
     ctx.fillStyle = '#fff7d6'; ctx.fillText(`${p.icon} ${p.name}`, x, y);
   });
+  // Start prompt + best score: a solid CTA pill over the seed bar so the
+  // lines never collide with the packet cards underneath.
+  ctx.fillStyle = 'rgba(8,14,6,0.95)'; rr(ctx, 300, 600, 680, 62, 12); ctx.fill();
+  ctx.strokeStyle = '#ffd94d'; ctx.lineWidth = 2; ctx.stroke();
   ctx.textAlign = 'center';
-  ctx.fillStyle = '#8ae06a'; ctx.font = 'bold 19px Georgia, serif';
+  ctx.fillStyle = '#8ae06a'; ctx.font = 'bold 18px Georgia, serif';
   const blink = 0.65 + 0.35 * Math.sin(time * 3);
   ctx.globalAlpha = blink;
-  ctx.fillText('— CLICK OR PRESS ENTER TO PLANT YOUR FIRST DEFENDERS —', 640, 618);
+  ctx.fillText('— CLICK OR PRESS ENTER TO PLANT YOUR FIRST DEFENDERS —', 640, 626);
   ctx.globalAlpha = 1;
-  ctx.fillStyle = '#b9d8a8'; ctx.font = '13px Georgia, serif';
-  ctx.fillText(`Best score: ${state.best.toLocaleString('en-US')} · Full run scores reach the tens of thousands through leak-free chains`, 640, 644);
+  ctx.fillStyle = '#b9d8a8'; ctx.font = '12.5px Georgia, serif';
+  ctx.fillText(`Best score: ${state.best.toLocaleString('en-US')} · Full runs reach the tens of thousands through leak-free chains`, 640, 650);
   ctx.textAlign = 'left';
 }
 
@@ -115,7 +119,7 @@ export function drawDraftScreen(ctx, state) {
   ctx.font = '15px Georgia, serif'; ctx.fillStyle = '#b9d8a8';
   ctx.fillText('DRAFT 1 OF 3 SEED PACKETS — it joins your collection and stacks forever', 640, 172);
   state.draftOptions.forEach((p, i) => {
-    const x = 190 + i * 310, y = 196, w = 280, h = 268;
+    const x = 150 + i * 300, y = 196, w = 270, h = 268;
     const hover = state.draftHover === i;
     ctx.fillStyle = hover ? '#2c4a22' : '#16240f'; rr(ctx, x, y, w, h, 14); ctx.fill();
     ctx.strokeStyle = hover ? '#ffd94d' : '#5a7a4a'; ctx.lineWidth = hover ? 3.2 : 1.8; ctx.stroke();
@@ -137,15 +141,15 @@ export function drawDraftScreen(ctx, state) {
     ctx.fillText(`PRESS ${i + 1} OR CLICK`, x + w / 2, y + 238);
   });
   // Collection recap strip.
-  ctx.fillStyle = 'rgba(8,14,6,0.92)'; rr(ctx, 190, 486, 900, 62, 10); ctx.fill();
+  ctx.fillStyle = 'rgba(8,14,6,0.92)'; rr(ctx, 150, 486, 870, 62, 10); ctx.fill();
   ctx.strokeStyle = '#5a7a4a'; ctx.stroke();
   ctx.fillStyle = '#8ae06a'; ctx.font = 'bold 13px Georgia, serif'; ctx.textAlign = 'left';
-  ctx.fillText('YOUR COLLECTION SO FAR:', 208, 510);
+  ctx.fillText('YOUR COLLECTION SO FAR:', 168, 510);
   ctx.fillStyle = '#fff7d6'; ctx.font = '13px Georgia, serif';
   const counts = new Map();
   for (const id of state.powers) counts.set(id, (counts.get(id) || 0) + 1);
   const recap = [...counts.entries()].map(([id, n]) => `${POWER_BY_ID[id].name}${n > 1 ? ` ×${n}` : ''}`).join(' · ') || '— nothing yet, this is your first packet —';
-  ctx.fillText(recap.length > 118 ? recap.slice(0, 118) + '…' : recap, 208, 532);
+  ctx.fillText(recap.length > 112 ? recap.slice(0, 112) + '…' : recap, 168, 532);
   ctx.textAlign = 'left';
 }
 

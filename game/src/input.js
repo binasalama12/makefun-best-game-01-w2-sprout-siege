@@ -13,7 +13,7 @@ export function cellAt(mx, my) {
 
 export function draftIndexAt(mx, my) {
   for (let i = 0; i < 3; i++) {
-    const x = 190 + i * 310, y = 196, w = 280, h = 268;
+    const x = 150 + i * 300, y = 196, w = 270, h = 268;
     if (mx >= x && mx <= x + w && my >= y && my <= y + h) return i;
   }
   return -1;
