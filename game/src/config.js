@@ -11,9 +11,9 @@ export const HUD_H = 52;
 // Trellis grid: 5 lanes x 7 columns. Gate sits at the left edge (x < GRID.x).
 export const LANES = 5;
 export const COLS = 7;
-export const GRID = { x: 196, y: 118, cellW: 118, cellH: 96 };
-export const GATE_X = 150; // pests crossing this x damage the gate
-export const SPAWN_X = 1252;
+export const GRID = { x: 170, y: 110, cellW: 118, cellH: 94 };
+export const GATE_X = 158; // pests crossing this x damage the gate
+export const SPAWN_X = 992;
 
 export const GARDENS = [
   {
